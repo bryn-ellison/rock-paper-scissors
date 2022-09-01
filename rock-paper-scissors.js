@@ -1,3 +1,6 @@
+let playerScore = 0;
+let computerScore = 0;
+
 function getComputerChoice() {
   const list = ["rock", "paper", "scissors"];
   const randomNumber = Math.floor(Math.random() * 3);
@@ -14,11 +17,11 @@ function playRound(playerSelection, computerSelection) {
   }
 
   if (player == "rock" && computer == "paper") {
-    return console.log("You lose! Paper beats rock");
+    return "You lose! Paper beats rock";
   } else if (player == "rock" && computer == "scissors") {
-    return console.log("You win! Rock beats scissors");
+    return "You win! Rock beats scissors";
   } else if (player == "scissors" && computer == "rock") {
-    return console.log("You lose! Rock beats scissors");
+    return "You lose! Rock beats scissors";
   } else if (player == "scissors" && computer == "paper") {
     return "You win! Scissors beats paper";
   } else if (player == "paper" && computer == "rock") {
@@ -29,35 +32,43 @@ function playRound(playerSelection, computerSelection) {
     return "It's a draw, try again!";
   }
 }
+const container = document.querySelector("body");
+const matchResult = document.createElement("div");
+const results = document.createElement("div");
+results.textContent = `Current scores: Player: ${playerScore} | Computer: ${computerScore}`;
+container.appendChild(results);
 
 const rockBtn = document.querySelector("#rock");
 rockBtn.addEventListener("click", () => {
-  playRound("rock", getComputerChoice());
+  let result = playRound("rock", getComputerChoice());
+  matchResult.textContent = result;
+  container.appendChild(matchResult);
 });
 
 const paperBtn = document.querySelector("#paper");
 paperBtn.addEventListener("click", () => {
-  playRound("paper", getComputerChoice());
+  let result = playRound("paper", getComputerChoice());
+  matchResult.textContent = result;
+  container.appendChild(matchResult);
+  // if (result.match(/win/)) {
+  //   playerScore++;
+  // } else if (result.match(/lose/)) {
+  //   computerScore++;
+  // }
 });
 
 const scissorsBtn = document.querySelector("#scissors");
 scissorsBtn.addEventListener("click", () => {
-  playRound("scissors", getComputerChoice());
+  let result = playRound("scissors", getComputerChoice());
+  matchResult.textContent = result;
+  container.appendChild(matchResult);
 });
 
 function game() {
-  let playerScore = 0;
-  let computerScore = 0;
-
   let choice = prompt("Choose your weapon: type 'rock', 'paper' or 'scissors'");
   let computerChoice = getComputerChoice();
-  let result = playRound(choice, computerChoice);
+
   console.log(result);
-  if (result.match(/win/)) {
-    playerScore++;
-  } else if (result.match(/lose/)) {
-    computerScore++;
-  }
 
   if (playerScore > computerScore) {
     return console.log(
