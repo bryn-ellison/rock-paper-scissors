@@ -11,10 +11,10 @@ function getComputerChoice() {
 function playRound(playerSelection, computerSelection) {
   const player = playerSelection;
   const computer = computerSelection;
-  const list = ["rock", "paper", "scissors"];
-  if (list.includes(player) === false || list.includes(computer) === false) {
-    return "Please input 'rock', 'paper' or 'scissors'";
-  }
+  // const list = ["rock", "paper", "scissors"];
+  // if (list.includes(player) === false || list.includes(computer) === false) {
+  //   return "Please input 'rock', 'paper' or 'scissors'";
+  // }
 
   if (player == "rock" && computer == "paper") {
     return "You lose! Paper beats rock";
@@ -32,56 +32,54 @@ function playRound(playerSelection, computerSelection) {
     return "It's a draw, try again!";
   }
 }
+
+function scorer(result) {
+  if (result.match(/win/)) {
+    playerScore++;
+    if (playerScore > 4) {
+      results.textContent = "Player wins, congratulations!!!";
+    } else {
+      matchResult.textContent = result;
+      container.appendChild(matchResult);
+      results.textContent = `Current scores: Player: ${playerScore} | Computer: ${computerScore}`;
+      container.appendChild(results);
+    }
+  } else if (result.match(/lose/)) {
+    computerScore++;
+    if (computerScore > 4) {
+      results.textContent = "Computer wins, you lose!!!";
+    } else {
+      matchResult.textContent = result;
+      container.appendChild(matchResult);
+      results.textContent = `Current scores: Player: ${playerScore} | Computer: ${computerScore}`;
+      container.appendChild(results);
+    }
+  } else {
+    matchResult.textContent = result;
+    container.appendChild(matchResult);
+    results.textContent = `Current scores: Player: ${playerScore} | Computer: ${computerScore}`;
+    container.appendChild(results);
+  }
+}
+
 const container = document.querySelector("body");
 const matchResult = document.createElement("div");
 const results = document.createElement("div");
-results.textContent = `Current scores: Player: ${playerScore} | Computer: ${computerScore}`;
-container.appendChild(results);
 
 const rockBtn = document.querySelector("#rock");
 rockBtn.addEventListener("click", () => {
   let result = playRound("rock", getComputerChoice());
-  matchResult.textContent = result;
-  container.appendChild(matchResult);
+  scorer(result);
 });
 
 const paperBtn = document.querySelector("#paper");
 paperBtn.addEventListener("click", () => {
   let result = playRound("paper", getComputerChoice());
-  matchResult.textContent = result;
-  container.appendChild(matchResult);
-  // if (result.match(/win/)) {
-  //   playerScore++;
-  // } else if (result.match(/lose/)) {
-  //   computerScore++;
-  // }
+  scorer(result);
 });
 
 const scissorsBtn = document.querySelector("#scissors");
 scissorsBtn.addEventListener("click", () => {
   let result = playRound("scissors", getComputerChoice());
-  matchResult.textContent = result;
-  container.appendChild(matchResult);
+  scorer(result);
 });
-
-function game() {
-  let choice = prompt("Choose your weapon: type 'rock', 'paper' or 'scissors'");
-  let computerChoice = getComputerChoice();
-
-  console.log(result);
-
-  if (playerScore > computerScore) {
-    return console.log(
-      "Congratulations! You beat the computer " +
-        playerScore +
-        " to " +
-        computerScore
-    );
-  } else if (playerScore < computerScore) {
-    return console.log(
-      "Loser! The computer beat you " + computerScore + " to " + playerScore
-    );
-  }
-}
-
-// game();
