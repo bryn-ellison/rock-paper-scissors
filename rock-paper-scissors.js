@@ -37,7 +37,11 @@ function scorer(result) {
   if (result.match(/win/)) {
     playerScore++;
     if (playerScore > 4) {
-      results.textContent = "Player wins, congratulations!!!";
+      results.textContent =
+        "Player wins, congratulations!!! Restarting game in 5 seconds";
+      setTimeout(function () {
+        window.location.reload();
+      }, 5000);
     } else {
       matchResult.textContent = result;
       container.appendChild(matchResult);
@@ -47,7 +51,11 @@ function scorer(result) {
   } else if (result.match(/lose/)) {
     computerScore++;
     if (computerScore > 4) {
-      results.textContent = "Computer wins, you lose!!!";
+      results.textContent =
+        "Computer wins, you lose!!! Restarting game in 5 seconds";
+      setTimeout(function () {
+        window.location.reload();
+      }, 5000);
     } else {
       matchResult.textContent = result;
       container.appendChild(matchResult);
